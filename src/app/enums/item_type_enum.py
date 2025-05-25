@@ -5,3 +5,7 @@ class ItemTypeEnum(Enum):
     FOOD="FOOD"
     CLOTHES="CLOTHES"
     GAMES="GAMES"
+
+class tipotransacao(Enum):
+    saque = "saque"
+    deposito = "deposito"

@@ -62,3 +62,20 @@ class saque:
         if len(timestamp) < 14:
             return (False, "timestamp must have at least fourteen digits")
         return (True, "")
+
+    def to_dict(self):
+        return {
+            "valor_do_saque": self.valor_do_saque,
+            "current_balance": self.current_balance,
+            "timestamp": self.timestamp
+        }
+        #retorna um dicionário com as chaves e seus respectivos valores depois de serem validados pelos métodos acima.
+
+    def __eq__(self.other)
+        return self.valor_do_saque == other.valor_do_saque, self.current_balance == other.current_balance, self.timestamp == other.timestamp
+        #verifica se o objeto em questão possui a mesma classe do objeto instanciado (self), ou seja, a classe "saque".
+
+    def __repr__(self):
+        return (f"saque({valor_do_saque = self.valor_do_saque}, "
+                f"{current_balance = self.current_balance}, "
+                f"{timestamp = self.timestamp}")")

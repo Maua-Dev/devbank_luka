@@ -42,6 +42,9 @@ class Environments:
         # use "elif" conditional to add other stages
         else:
             raise EnvironmentNotFound("STAGE")
+    
+    @staticmethod
+    def get_user_repo()
         
 
     @staticmethod

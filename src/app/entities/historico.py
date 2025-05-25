@@ -3,9 +3,10 @@ from ..errors.entity_errors import ParamNotValidated
 from ..enums.item_type_enum import ItemTypeEnum
 from "./app/entities/deposito" import deposito
 from "./app/entities/saque" import saque
+from ..enums.item_type_enum import tipotransacao
 
 class historico:
-    type: str
+    type: tipotransacao
     value: float
     current_balance: float
     timestamp: float
@@ -40,7 +41,7 @@ class historico:
     def validate_type(type: str) -> Tuple[bool, str]
         if type is None:
             return (False, "Type is required")
-        if type != "deposito" or "saque":
+        if type != tipotransacao:
             return (False, "Type must either be a deposit or a withdraw")
         if type(type) != str:
             return (False, "Type must be a string")

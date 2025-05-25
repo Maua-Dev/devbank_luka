@@ -1,6 +1,5 @@
 import pytest
-from src.app.entities.item import Item
-from src.app.enums.item_type_enum import ItemTypeEnum
+from src.app.entities.usuario import usuario
 from src.app.errors.entity_errors import ParamNotValidated
 
 class test_usuario:
@@ -13,7 +12,7 @@ class test_usuario:
     
     def test_name_is_None(self)
     with pytest.raises(ParamNotValidated):
-        usuario(name="", agency="0000", account="00000-0", current_balance=1000.0)
+        usuario(name=None, agency="0000", account="00000-0", current_balance=1000.0)
 
     def test_name_is_not_string(self)
     with pytest.raises(ParamNotValidated):
@@ -21,13 +20,14 @@ class test_usuario:
 
     def test_name_length_is_under_twelve(self)
     with pytest.raises(ParamNotValidated):
-        usuario(name="Vitor Solle", agency="0000", account="00000-0", current_balance=1000.0)
+        usuario(name="Vitor Soll", agency="0000", account="00000-0", current_balance=1000.0)
+    #verifica se o nome do usuário condiz com as regras impostas.
 
 
 
     def test_agency_is_None(self)
     with pytest.raises(ParamNotValidated):
-        usuario(name="Vitor Soller", agency="", account="00000-0", current_balance=1000.0)
+        usuario(name="Vitor Soller", agency=None, account="00000-0", current_balance=1000.0)
 
     def test_agency_is_not_string(self)
     with pytest.raises(ParamNotValidated):
@@ -36,31 +36,55 @@ class test_usuario:
     def test_agency_length_is_under_four(self)
     with pytest.raises(ParamNotValidated):
         usuario(name="Vitor Soller", agency="000", account="00000-0", current_balance=1000.0)
+    #verifica se a agência segue os padrões estabelecidos.
 
 
 
     def test_account_is_None(self)
     with pytest.raises(ParamNotValidated):
-        usuario(name="Vitor Soller", agency="0000", account="", current_balance=1000.0)
+        usuario(name="Vitor Soller", agency="0000", account=None, current_balance=1000.0)
 
     def test_account_is_not_string(self)
     with pytest.raises(ParamNotValidated):
         usuario(name="Vitor Soller", agency="0000", account=10, current_balance=1000.0)
 
+    def test_account_is_not_string2(self)
+    with pytest.raises(ParamNotValidated):
+        usuario(name="Vitor Soller", agency="0000", account=10.0, current_balance=1000.0)
+    
     def test_account_length_is_under_seven(self)
     with pytest.raises(ParamNotValidated):
         usuario(name="Vitor Soller", agency="0000", account="00000-", current_balance=1000.0)
+    #verifica se a conta obedece aos parâmetros exigidos.
 
 
 
     def test_current_balance_is_None(self)
     with pytest.raises(ParamNotValidated):
-        usuario(name="Vitor Soller", agency="0000", account="00000-0", current_balance="")
+        usuario(name="Vitor Soller", agency="0000", account="00000-0", current_balance=None)
 
     def test_current_balance_is_not_float(self)
     with pytest.raises(ParamNotValidated):
         usuario(name="Vitor Soller", agency="0000", account="00000-0", current_balance="abc")
 
+    def test_current_balance_is_not_float2(self)
+    with pytest.raises(ParamNotValidated):
+        usuario(name="Vitor Soller", agency="0000", account="00000-0", current_balance=10)
+
     def test_current_balance_is_under_zero(self)
     with pytest.raises(ParamNotValidated):
         usuario(name="Vitor Soller", agency="0000", account="00000-0", current_balance=-10)
+    #verifica se o valor atual na conta está dentro dos parâmetros impostos.
+    
+
+    def test_usuario_to_dict(self)
+    with pytest.raises(ParamNotValidated):
+        a = usuario(name = "Vitor Soller", agency = "0000", account = "00000-0", current_balance = 1000.0)
+        try a.to_dict() = {
+            name = "Vitor Soller",
+            agency = "0000",
+            account = "00000-0",
+            current_balance = 1000.0
+        }
+    #verifica se os dados podem ser dispostos como dicionário.
+    #?poderia fazer try to_dict(a) ao invés de try a.to_dict()?

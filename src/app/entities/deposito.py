@@ -61,3 +61,23 @@ class deposito:
         if len(timestamp) < 14:
             return (False, "timestamp must have at least fourteen digits")
         return (True, "")
+
+    def to_dict(self):
+        return {
+            "valor_do_deposito": self.valor_do_deposito,
+            "current_balance": self.current_balance,
+            "timestamp": self.timestamp
+        }
+        #retorna um dicionário com as chaves e seus respectivos valores depois das validações com os métodos acima.
+
+    def __eq__(self.other):
+        return self.valor_do_deposito == other.valor_do_deposito, self.current_balance == other.current_balance, self.timestamp == other.timestamp
+        #verifica se o objeto em questão possui a mesma classe que o objeto instanciado (self), ou seja, a classe "deposito".
+    
+    def __repr__(self):
+        return (f"deposito({valor_do_deposito = self.valor_do_deposito}, "
+                f"{current_balance = self.current_balance}, "
+                f"{timestamp = self.timestamp}")")
+        #faz uma representação inequívoca do objeto no formato string, trazendo detalhes do objeto para o desenvolvedor.
+        #é diferente do __str__ que foca na representação (também string) amigável para o usuário.
+        #!estudar mais!
