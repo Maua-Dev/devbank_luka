@@ -5,6 +5,8 @@ import os
 from .errors.environment_errors import EnvironmentNotFound
 
 from .repo.item_repository_interface import IItemRepository
+from .repo.usuario_repository_interface import IUsuarioRepository
+from .repo.transacoes_repository_interface import ITransacaoRepository
 
 
 class STAGE(Enum):
@@ -44,8 +46,27 @@ class Environments:
             raise EnvironmentNotFound("STAGE")
     
     @staticmethod
-    def get_user_repo()
+    def get_user_repo() -> IUsuarioRepository:
+        if Enviroments.get_envs().stage == STAGE.TEST:
+            from .repo.usuario_repository_mock import IUsuarioRepositoryMock
+            return UsuarioRepositoryMock
+        else:
+            raise EnviromentNotFound("STAGE")
         
+    @staticmethod
+    def get_transaction_repo() -> ITransacaoRepository:
+        if Enviroments.get_envs().stage == STAGE.TEST:
+            from .repo.transacoes_repository_mock import ITransacaoRepositoryMock
+            return TransacaoRepositoryMock
+        else:
+            raise EnviromentNotFound("STAGE")
+
+    @staticmethod
+    def post_transaction_repo() ->ITransacaoRepository:
+        if Enviroments.post_envs().stage == STAGE.TEST:
+            post()
+        else:
+            raise EnviromentNotFound("STAGE")
 
     @staticmethod
     def get_envs() -> "Environments":
@@ -57,6 +78,11 @@ class Environments:
         envs = Environments()
         envs.load_envs()
         return envs
+
+    @staticmethod
+    def post_envs() -> "Enviroments":
+        envs = Enviroments.post()
+        envs.load_envs()
 
     def __repr__(self):
         return self.__dict__

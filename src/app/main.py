@@ -11,6 +11,11 @@ from .enums.item_type_enum import ItemTypeEnum
 
 from .entities.item import Item
 
+from .entities.transacoes import transacao
+from .enums.item_type_enum import tipotransacao
+
+import requests
+
 
 app = FastAPI()
 
@@ -134,6 +139,39 @@ def update_item(request: dict):
         "item": item_updated.to_dict()    
     }
     
+user1 = Enviroments.get_user_repo()
+@app.get_user("/")
+    def get_user():
+
+        user = user1.get_user(user_id=1)
+
+        if not user:
+            raise HTTPException(status_code=400, detail="User not found")
+
+        try user.json()
+        except user.to_dict()
+
+history1 = Enviroments.get_transaction_repo()
+@app.get_history("/history")
+    def get_history():
+
+        history = history1.get_all_transactions()
+
+        history_dict = {transactions:[]}
+        for transaction in transactions:
+            history_dict.append{transaction_id: transacao}
+
+        return history
+
+informacoes = {transaction_id : transacao(type=tipotransacao, value=float, current_balance=float, timestamp=float)}
+@app.post_transaction("/deposit")
+    def post_deposit():
+        deposito = requests.post("https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws/deposit", informacoes)
+
+
+@app.post_transaction("/withdraw")
+    def post_withdraw():
+        saque = requests.post("https://r2tcz6zsokynb72jb6o4ffd5nm0ryfyz.lambda-url.us-west-2.on.aws/withdraw", informacoes)
 
 
 handler = Mangum(app, lifespan="off")
